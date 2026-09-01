@@ -1,32 +1,47 @@
 //import express
 const express = require('express')
 
-//init express router
-const router = express.Router();
+//import CORS
+const cors = require('cors')
 
-//import middleware upload
-const upload = require('../middlewares/upload');
+//import bodyParser
+const bodyParser = require('body-parser')
 
-//import validators
-const { validatePost } = require('../utils/validators/post');
+//import path
+const path = require('path')
 
-//import post controller
-const postController = require('../controllers/PostController');
+//import router
+const router = require('./routes')
 
-//define route for posts
-router.get('/posts', postController.findPosts);
+//init app
+const app = express()
 
-//define route for post create
-router.post('/posts', upload.single('image'), validatePost, postController.createPost);
+//use cors
+app.use(cors())
 
-//define route for post by id
-router.get('/posts/:id', postController.findPostById);
+//use body parser
+app.use(bodyParser.urlencoded({ extended: false }))
 
-//define route for post update
-router.put('/posts/:id', upload.single('image'), validatePost, postController.updatePost);
+// parse application/json
+app.use(bodyParser.json())
 
-//define route for post delete
-router.delete('/posts/:id', postController.deletePost);
+//define port
+const port = 3000;
 
-//export router
-module.exports = router
+//route
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+//define routes
+app.use('/api', router);
+
+// Route to serve uploaded files (if needed)
+app.get('/uploads/:filename', (req, res) => {
+  res.sendFile(path.join(__dirname, 'uploads', req.params.filename));
+});
+
+//start server
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+})
