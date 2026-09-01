@@ -22,5 +22,8 @@ router.post('/posts', upload.single('image'), validatePost, postController.creat
 //define route for post by id
 router.get('/posts/:id', postController.findPostById);
 
+//define route for post update
+router.put('/posts/:id', upload.single('image'), validatePost, postController.updatePost);
+
 //export router
 module.exports = router
