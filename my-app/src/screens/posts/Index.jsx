@@ -1,11 +1,20 @@
-import {View, Text, StyleSheet} from 'react-native';
-
 import React from 'react';
+import {Button, StyleSheet, Text, View} from 'react-native';
 
-export default function PostsIndex() {
+export default function PostsIndex({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Posts Index</Text>
+      <View style={styles.actions}>
+        <Button
+          title="Create Post"
+          onPress={() => navigation.navigate('PostCreate')}
+        />
+        <Button
+          title="Edit Post"
+          onPress={() => navigation.navigate('PostEdit')}
+        />
+      </View>
     </View>
   );
 }
@@ -23,5 +32,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#000',
+  },
+  actions: {
+    gap: 12,
+    marginTop: 20,
   },
 });
