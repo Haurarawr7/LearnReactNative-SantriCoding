@@ -33,6 +33,14 @@
       ],
       "expo-status-bar",
       "expo-image",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Izinkan aplikasi memilih gambar untuk post.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ],
       "expo-web-browser"
     ]
   }
